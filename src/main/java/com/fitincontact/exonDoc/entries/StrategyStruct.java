@@ -5,7 +5,7 @@ import com.fitincontact.exonDoc.enums.ParentType;
 
 public class StrategyStruct {
     private ParentType parentType = ParentType.OBJ;
-    private CharPlaceType charPlaceTypePoint = CharPlaceType.OBJ_L_CURLY_BRACKET;
+    private CharPlaceType charPlaceType = CharPlaceType.OBJ_L_CURLY_BRACKET;
     private char ch;
 
     public StrategyStruct() {
@@ -19,12 +19,12 @@ public class StrategyStruct {
         this.parentType = parentType;
     }
 
-    public CharPlaceType getStrategyPoint() {
-        return charPlaceTypePoint;
+    public CharPlaceType getCharPlaceType() {
+        return charPlaceType;
     }
 
-    public void setStrategyPoint(CharPlaceType charPlaceTypePoint) {
-        this.charPlaceTypePoint = charPlaceTypePoint;
+    public void setCharPlaceType(CharPlaceType charPlaceTypePoint) {
+        this.charPlaceType = charPlaceTypePoint;
     }
 
     public char getCh() {

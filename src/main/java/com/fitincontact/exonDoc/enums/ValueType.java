@@ -1,5 +1,7 @@
 package com.fitincontact.exonDoc.enums;
 
+import java.util.Set;
+
 public enum ValueType {
     OBJ,
     ARR,
@@ -7,5 +9,6 @@ public enum ValueType {
     NUM,
     DATE,
     PATH,
-    BOOL
+    BOOL;
+    public static final Set<ValueType> primitive = Set.of(STR, NUM, DATE, PATH, BOOL);
 }

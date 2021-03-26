@@ -2,6 +2,7 @@ package com.fitincontact.exonDoc.Parser;
 
 import com.fitincontact.exonDoc.entries.ExonEntry;
 import com.fitincontact.exonDoc.entries.StrategyStruct;
+import com.fitincontact.exonDoc.enums.CharPlaceType;
 import com.fitincontact.exonDoc.enums.ParentType;
 import com.fitincontact.exonDoc.enums.ParseAction;
 import com.fitincontact.exonDoc.enums.ValueType;
@@ -33,17 +34,17 @@ public class ExonTxt {
         for (char ch : cleanExonString.toCharArray()) {
             chPosition++;
 
-            final var tmp = cleanExonString.substring(chPosition, cleanExonString.length() );
-            if (chPosition == cleanExonString.length() - 2) {
-                System.out.println("--stop--");
-            }
-            if (chPosition == 340) {
-                System.out.println("--stop--");
-            }
+//            final var tmp = cleanExonString.substring(chPosition, cleanExonString.length() );
+//            if (chPosition == cleanExonString.length() - 2) {
+//                System.out.println("--stop--");
+//            }
+//            if (chPosition == 340) {
+//                System.out.println("--stop--");
+//            }
 
             struct.setCh(ch);
             ExonTxtStrategy.define(struct);
-            var strategy = struct.getStrategyPoint();
+            var strategy = struct.getCharPlaceType();
             var parseAction = ParseAction.charPlaceMapOnParseAction(strategy);
             if (parseAction == null) {
                 System.out.println("--null--");
@@ -110,18 +111,27 @@ public class ExonTxt {
                         case ARR -> struct.setParent(ParentType.ARR);
                     }
 
+                    //num and bool dont have special end symbol like other primitives
+                    if (struct.getParent() == ParentType.OBJ &&
+                            (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
+                                    struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
+                        struct.setCharPlaceType(CharPlaceType.OBJ_WHITE_SPACE_1);
+                    }
+                    if (struct.getParent() == ParentType.ARR &&
+                            (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
+                                    struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
+                        struct.setCharPlaceType(CharPlaceType.ARR_WHITE_SPACE);
+                    }
+
                     if (stack.isEmpty()) {
                         return rootExon;
                     }
                 }
-
                 case CONTINUE -> {
-
                 }
                 case ERROR -> {
                     err(ch, chPosition);
                 }
-
             }
         }
         return rootExon;

@@ -1,5 +1,6 @@
 import com.fitincontact.exonDoc.api.ExonDoc;
 import com.fitincontact.exonDoc.entries.Exon;
+import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -8,63 +9,40 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ExonTxtTest {
 
-    private static final char f1 = '{';
-    private static final char f2 = '}';
-    private static final char f3 = ':';
-    private static final char f4 = '[';
-    private static final char f5 = ']';
-    private static final char f6 = '\'';
-    private static final char f7 = '"';
-    private static final char f8 = '`';
-    private static final char LEFT_CURLY_BRACKET = '{';
-    private static final char RIGHT_CURLY_BRACKET = '}';
-    private static final char COLON = ':';
-    private static final char LEFT_SQUARE_BRACKET = '[';
-    private static final char RIGHT_SQUARE_BRACKET = ']';
-    private static final char APOSTROPHE = '\'';
-    private static final char QUOTATION_MARK = '"';
+public class ExonTxtTest {
+    final static Logger LOG = Logger.getLogger(ExonTxtTest.class);
+
     private final ExonDoc exonDoc = new ExonDoc();
 
     @DataProvider
     public Object[][] parseData() {
         final String collection = "Person";
 
-//System.out.println(f1+Character.getName(f1));
-//        System.out.println(f2+Character.getName(f2));
-//        System.out.println(f3+Character.getName(f3));
-//        System.out.println(f4+Character.getName(f4));
-//        System.out.println(f5+Character.getName(f5));
-//        System.out.println(f6+Character.getName(f6));
-//        System.out.println(f7+Character.getName(f7));
-//        System.out.println(f8+Character.getName(f8));
-
-
-//        try{
-//            PrintWriter out = new PrintWriter("filename.txt");
-//            out.println("filename.txt");
-//        }
-//        catch (FileNotFoundException ex){
-//            System.out.println(ex.getMessage());
-//        }
-
-        final String exonString1 = readFile("src/test/java/exons/exonString1.exon", Charset.defaultCharset());
-        final String exonString2 = readFile("src/test/java/exons/exonString2.exon", Charset.defaultCharset());
+        final String exonString1 = readFile("src/test/resources/exon/exonString1.exon", Charset.defaultCharset());
+        final String exonString2 = readFile("src/test/resources/exon/exonString2.exon", Charset.defaultCharset());
+        final String template2 = readFile("src/test/resources/template/2", Charset.defaultCharset());
 
         return new Object[][]{
                 //{collection, exonString1},
-                {collection, exonString2},
+                {collection, exonString2, template2},
         };
     }
 
     @Test(dataProvider = "parseData")
     public void tst(
             final String collection,
-            final String exonString
+            final String exonString,
+            final String template
     ) {
+        LOG.debug("parseData");
         final Exon exon = exonDoc.parse().parse(collection, exonString);
-        //System.out.println(exonString);
+//        System.out.println(exonString);
+//        System.out.println("--------------");
+//        System.out.println(exon.getExonEntry().toString());
+        //System.out.println(exon.getExonEntry().toStringWithFormat(0));
+        assert (normalize(exon.getExonEntry().toStringWithFormat(0)).equals(normalize(template))) : "ERROR";
+        LOG.debug("\n" + exon.getExonEntry().toStringWithFormat(0));
     }
 
     private String readFile(String path, Charset encoding) {
@@ -75,6 +53,11 @@ public class ExonTxtTest {
             System.out.println("IOException :" + ex.getMessage());
         }
         return null;
+    }
+
+    private String normalize(String txt) {
+        txt = txt.replace("\n", "");
+        return txt;
     }
 
 }

@@ -104,4 +104,65 @@ public class ExonEntry {
     public void add(final ExonEntry exonEntry) {
         this.arrAndObjList.add(exonEntry);
     }
+
+    public String toString() {
+        final var res = new StringBuilder();
+        res.append(memberName.equals("") ? "" : memberName + " : ");
+        if (ValueType.primitive.contains(valueType)) {
+            res.append(str.equals("") ? str : "'" + str + "'\n");
+            res.append(num.equals("") ? num : num + "\n");
+            res.append(date.equals("") ? date : "\"" + date + "\"\n");
+            res.append(path.equals("") ? path : "`" + path + "`\n");
+            res.append(bool.equals("") ? bool : bool + "\n");
+        } else if (valueType == ValueType.OBJ) {
+            res.append("{");
+            for (var member : arrAndObjList) {
+                res.append(member.toString());
+            }
+            res.append("}\n");
+        } else if (valueType == ValueType.ARR) {
+            res.append("[");
+            for (var member : arrAndObjList) {
+                res.append(member.toString());
+            }
+            res.append("]\n");
+        }
+        return res.toString();
+    }
+
+    public String toStringWithFormat(int indent) {
+        final var res = new StringBuilder();
+        res.append(memberName.equals("") ? multiply(indent) : multiply(indent) + memberName + " : ");
+        if (ValueType.primitive.contains(valueType)) {
+            res.append(str.equals("") ? str : "'" + str + "'\n");
+            res.append(num.equals("") ? num : num + "\n");
+            res.append(date.equals("") ? date : "\"" + date + "\"\n");
+            res.append(path.equals("") ? path : "`" + path + "`\n");
+            res.append(bool.equals("") ? bool : bool + "\n");
+        } else if (valueType == ValueType.OBJ) {
+            res.append("{\n");
+            for (var member : arrAndObjList) {
+                res.append(member.toStringWithFormat(indent + 1));
+            }
+            res.append(multiply(indent) + "}\n");
+        } else if (valueType == ValueType.ARR) {
+            res.append("[\n");
+            for (var member : arrAndObjList) {
+                res.append(member.toStringWithFormat(indent + 1));
+            }
+            res.append(multiply(indent) + "]\n");
+        }
+        return res.toString();
+    }
+
+    private String multiply(int indent) {
+        StringBuilder res = new StringBuilder();
+        if (indent > 0) {
+            for (int i = 0; i <= indent; i++) {
+                res.append("    ");
+            }
+        }
+        return res.toString();
+    }
+
 }

@@ -6,6 +6,10 @@ public class Exon {
     private final String collection;
     private final ExonEntry exonEntry = new ExonEntry(ValueType.OBJ);
 
+    //todo
+    //user
+    //execDate
+
     public Exon(
             final String collection
     ) {
