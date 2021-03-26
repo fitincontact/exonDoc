@@ -1,0 +1,47 @@
+o:							|a:
+	{						|	[
+		}	->end			|		]	->end
+		w					|		w
+		c					|	
+			w				|		o
+			:				|		a
+				w			|		s
+							|		n
+				o			|		d
+				a			|		p
+				s			|		b
+				n			|
+				d			|
+				p			|
+				b			|
+______________________________________________________________
+s:							|n:
+	'						|	di	->end
+		'	->end			|		
+		c					|
+______________________________________________________________					
+d:							|p:
+	"						|	`
+		fr					|		`	->end
+			"	->end		|		c
+______________________________________________________________
+b:
+	true
+	false
+	null
+		w1
+______________________________________________________________
+o - object
+a - array
+s - string
+n - number
+d - digit
+p - path
+b - boolean
+
+w - whitespace 0 or more
+c - character 1 or more
+di - digit 1 or more
+fr - format YYYY-MM-DD hh:mm:ss
+
+		

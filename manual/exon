@@ -1,13 +1,5 @@
 exon
-    element
-
-element
-    ws value ws
-
-value
     object
-    array
-    primitive
 
 object
     '{' ws '}'
@@ -18,28 +10,32 @@ members
     member s members
 
 member
-    ws string ws ':' element
+    ws characters ws ':' ws value ws
+
+value
+    object
+    array
+    primitive
 
 array
     '[' ws ']'
-    '[' elements ']'
+    '[' values ']'
 
-elements
-    element
-    element s elements
+values
+    ws value ws
+    value s values
 
 primitive
     string
     number
     date
     path
-    bool
+    boolType
 
 string
-    '"' characters '"'
+    ''' characters '''
 
 characters
-    ""
     character characters
 
 character
@@ -106,9 +102,9 @@ dirs
     dir '/' dirs
 
 dir
-    string
+    characters
 
-bool
+boolType
     true
     false
     null
@@ -125,3 +121,8 @@ s
     '000A' ws
     '000D' ws
     '0009' ws
+' '	    U+0020	SPACE
+'\n'	U+000A	NEW LINE
+'\r'	U+000D	CARRIAGE RETURN
+'\t'	U+0009	HORIZONTAL TABULATION
+'\f'	U+000C	FORM FEED
