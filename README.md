@@ -12,7 +12,7 @@ true - boolean
 [] - array  
 
 See:  
-[McKeeman Form](https://github.com/fitincontact/exonDoc/blob/main/manual/exon_steps.txt)  
+[McKeeman Form](https://github.com/fitincontact/exonDoc/blob/main/manual/exon)  
 [Recursive form](https://github.com/fitincontact/exonDoc/blob/main/manual/exon_steps.png)  
 
 example:  
