@@ -1,11 +1,11 @@
-package com.fitincontact.exonDoc.Parser;
+package com.fitincontact.exondoc.parser;
 
-import com.fitincontact.exonDoc.entries.StrategyStruct;
-import com.fitincontact.exonDoc.enums.CharPlaceType;
+import com.fitincontact.exondoc.parser.entries.StrategyStruct;
+import com.fitincontact.exondoc.parser.enums.CharPlaceType;
 
 import java.util.Set;
 
-import static com.fitincontact.exonDoc.enums.CharPlaceType.*;
+import static com.fitincontact.exondoc.parser.enums.CharPlaceType.*;
 
 public class ExonTxtStrategy {
 

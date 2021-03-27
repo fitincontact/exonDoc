@@ -1,11 +1,12 @@
-package com.fitincontact.exonDoc.Parser;
+package com.fitincontact.exondoc.parser;
 
-import com.fitincontact.exonDoc.entries.ExonEntry;
-import com.fitincontact.exonDoc.entries.StrategyStruct;
-import com.fitincontact.exonDoc.enums.CharPlaceType;
-import com.fitincontact.exonDoc.enums.ParentType;
-import com.fitincontact.exonDoc.enums.ParseAction;
-import com.fitincontact.exonDoc.enums.ValueType;
+import com.fitincontact.exondoc.parser.entries.Exon;
+import com.fitincontact.exondoc.parser.entries.ExonEntry;
+import com.fitincontact.exondoc.parser.entries.StrategyStruct;
+import com.fitincontact.exondoc.parser.enums.CharPlaceType;
+import com.fitincontact.exondoc.parser.enums.ParentType;
+import com.fitincontact.exondoc.parser.enums.ParseAction;
+import com.fitincontact.exondoc.parser.enums.ValueType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Stack;
@@ -14,7 +15,7 @@ import java.util.Stack;
 public class ExonTxt {
 
     @Nullable
-    public com.fitincontact.exonDoc.entries.Exon parse(
+    public Exon parse(
             final String collection,
             final String exonString
     ) {
@@ -26,7 +27,7 @@ public class ExonTxt {
         chPosition++;
         final var cleanExonString = cleanExonStringTemp.substring(1, cleanExonStringTemp.length() - 1);
 
-        final var rootExon = new com.fitincontact.exonDoc.entries.Exon(collection);
+        final var rootExon = new Exon(collection);
         final var stack = new Stack<ExonEntry>();
         stack.push(rootExon.getExonEntry());
 
@@ -137,7 +138,7 @@ public class ExonTxt {
         return rootExon;
     }
 
-    private com.fitincontact.exonDoc.entries.Exon err(final char ch, final int place) {
+    private Exon err(final char ch, final int place) {
         System.out.println("Non expected symbol: <" + ch + ">, name: <" + Character.getName(ch) + ">, on position: " + place);
         return null;
     }

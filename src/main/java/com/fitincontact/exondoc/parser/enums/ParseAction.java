@@ -1,4 +1,4 @@
-package com.fitincontact.exonDoc.enums;
+package com.fitincontact.exondoc.parser.enums;
 
 import java.util.Set;
 

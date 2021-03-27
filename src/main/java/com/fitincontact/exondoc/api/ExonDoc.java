@@ -1,7 +1,7 @@
-package com.fitincontact.exonDoc.api;
+package com.fitincontact.exondoc.api;
 
-import com.fitincontact.exonDoc.Parser.ExonTxt;
-import com.fitincontact.exonDoc.core.Shell;
+import com.fitincontact.exondoc.core.Shell;
+import com.fitincontact.exondoc.parser.ExonTxt;
 
 public class ExonDoc {
     public Shell shell() {

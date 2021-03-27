@@ -1,6 +1,7 @@
-package com.fitincontact.exonDoc.core;
+package com.fitincontact.exondoc.core;
 
-import com.fitincontact.exonDoc.Parser.ExonTxt;
+import com.fitincontact.exondoc.parser.ExonTxt;
+import com.fitincontact.exondoc.parser.entries.Exon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Shell {
 
                 System.out.println("request : " + request);
 
-                final com.fitincontact.exonDoc.entries.Exon exon = parse.parse(collection, request);
+                final Exon exon = parse.parse(collection, request);
 
 
             }

@@ -1,6 +1,6 @@
-package com.fitincontact.exonDoc.entries;
+package com.fitincontact.exondoc.parser.entries;
 
-import com.fitincontact.exonDoc.enums.ValueType;
+import com.fitincontact.exondoc.parser.enums.ValueType;
 
 public class Exon {
     private final String collection;

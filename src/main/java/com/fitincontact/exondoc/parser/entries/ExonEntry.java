@@ -1,6 +1,6 @@
-package com.fitincontact.exonDoc.entries;
+package com.fitincontact.exondoc.parser.entries;
 
-import com.fitincontact.exonDoc.enums.ValueType;
+import com.fitincontact.exondoc.parser.enums.ValueType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,7 +150,7 @@ public class ExonEntry {
             for (var member : arrAndObjList) {
                 res.append(member.toStringWithFormat(indent + 1));
             }
-            res.append(multiply(indent) + "]\n");
+            res.append(multiply(indent)).append("]\n");
         }
         return res.toString();
     }

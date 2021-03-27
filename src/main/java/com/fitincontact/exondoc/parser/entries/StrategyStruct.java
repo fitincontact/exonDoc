@@ -1,7 +1,7 @@
-package com.fitincontact.exonDoc.entries;
+package com.fitincontact.exondoc.parser.entries;
 
-import com.fitincontact.exonDoc.enums.CharPlaceType;
-import com.fitincontact.exonDoc.enums.ParentType;
+import com.fitincontact.exondoc.parser.enums.CharPlaceType;
+import com.fitincontact.exondoc.parser.enums.ParentType;
 
 public class StrategyStruct {
     private ParentType parentType = ParentType.OBJ;
