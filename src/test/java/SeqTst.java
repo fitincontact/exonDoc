@@ -1,4 +1,3 @@
-import com.fitincontact.exondoc.storage.Sequence;
 import com.fitincontact.exondoc.storage.StorageApi;
 import com.fitincontact.exondoc.utils.Util;
 import org.apache.log4j.Logger;
@@ -12,10 +11,9 @@ public class SeqTst {
     StorageApi api = new StorageApi();
 
     @Test
-    public void tst(
-
-    ) {
-      var  id1 = Long.valueOf(
+    public void tst() {
+        LOG.debug("SeqTst");
+        var id1 = Long.valueOf(
                 Objects.requireNonNull(
                         Util.readFile(
                                 "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
@@ -40,7 +38,7 @@ public class SeqTst {
         sequence.getId();
         sequence.getId();
 
-        var  id2 = Long.valueOf(
+        var id2 = Long.valueOf(
                 Objects.requireNonNull(
                         Util.readFile(
                                 "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
@@ -48,6 +46,6 @@ public class SeqTst {
                         )
                 )
         );
-        assert (id2-id1==6):"ERROR id2-id1 = " + (id2-id1)+"; expected: 6";
+        assert (id2 - id1 == 6) : "ERROR id2-id1 = " + (id2 - id1) + "; expected: 6";
     }
 }
