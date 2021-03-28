@@ -25,12 +25,22 @@ public class Sequence implements Instance {
         isTemp = false;
     }
 
+    public static Long getLastSavedId() {
+        return Long.valueOf(
+                Objects.requireNonNull(
+                        Util.readFile(
+                                "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
+                                Charset.defaultCharset()
+                        )
+                )
+        );
+    }
+
     @Override
     public void start() {
         if (isTemp) {
             SINGLETON = new Sequence();
         }
-
     }
 
     @Override
@@ -39,7 +49,16 @@ public class Sequence implements Instance {
                 "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
                 String.valueOf(id)
         );
-        //INSTANCE = null;
+        //todo ?
+        SINGLETON = null;
+    }
+
+    @Override
+    public void save() {
+        Util.writeFile(
+                "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
+                String.valueOf(id)
+        );
     }
 
     protected Sequence getInstance() {

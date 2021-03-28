@@ -1,21 +1,33 @@
 package com.fitincontact.exondoc.storage;
 
 public class StorageApi implements Instance {
-    private final Sequence sequenceTmp = Sequence.SINGLETON;
-    private Sequence sequence = null;
-
-    public Sequence sequence() {
-        return sequence;
-    }
+    private final Storage storage = Storage.SINGLETON;
+    //private Storage storage = null;
 
     @Override
     public void start() {
-        sequenceTmp.start();
-        sequence = sequenceTmp.getInstance();
+        storage.start();
     }
 
     @Override
     public void stop() {
+        storage.stop();
+    }
 
+    @Override
+    public void save() {
+        storage.save();
+    }
+
+    public Long getId() {
+        return storage.getSequence().getId();
+    }
+
+    public Long getCurrentId() {
+        return storage.getSequence().getCurrentId();
+    }
+
+    public Long getLastSavedId() {
+        return Sequence.getLastSavedId();
     }
 }

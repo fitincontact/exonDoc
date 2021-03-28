@@ -1,10 +1,6 @@
 import com.fitincontact.exondoc.storage.StorageApi;
-import com.fitincontact.exondoc.utils.Util;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
-
-import java.nio.charset.Charset;
-import java.util.Objects;
 
 public class SeqTst {
     final static Logger LOG = Logger.getLogger(SeqTst.class);
@@ -13,39 +9,25 @@ public class SeqTst {
     @Test
     public void tst() {
         LOG.debug("SeqTst");
-        var id1 = Long.valueOf(
-                Objects.requireNonNull(
-                        Util.readFile(
-                                "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
-                                Charset.defaultCharset()
-                        )
-                )
-        );
+        var id1 = api.getLastSavedId();
 
         api.start();
-        var sequence = api.sequence();
-        sequence.getId();//1
-        sequence.getId();//2
-        sequence.stop();
-        sequence.start();
-        sequence.getId();//3
-        sequence.getId();//4
-        sequence.getId();//5
-        sequence.getId();//6
-        sequence.stop();
-        sequence.getId();
-        sequence.getId();
-        sequence.getId();
-        sequence.getId();
+        api.getId();//1
+        api.getId();//2
+        api.stop();
+        api.start();
+        api.getId();//3
+        api.getId();//4
+        api.getId();//5
+        api.getId();//6
+        api.stop();
+        //api.getId();
+//        api.getId();
+//        api.getId();
+//        api.getId();
+        //api.stop();
 
-        var id2 = Long.valueOf(
-                Objects.requireNonNull(
-                        Util.readFile(
-                                "src/main/java/com/fitincontact/exondoc/storage/files/Sequence",
-                                Charset.defaultCharset()
-                        )
-                )
-        );
+        var id2 = api.getLastSavedId();
         assert (id2 - id1 == 6) : "ERROR id2-id1 = " + (id2 - id1) + "; expected: 6";
     }
 }
