@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Name implements InstanceI, NameI {
+
     protected final static Name SINGLETON = new Name();
+    private final static String FILE = "src/main/java/com/fitincontact/exondoc/storage/files/Name";
     private final List<Name> names = new ArrayList<>();
     private Long nameId;
     private String name;
@@ -61,9 +63,7 @@ public class Name implements InstanceI, NameI {
 
     @Override
     public void start() {
-        final var rows = Util.getRowsFromFile(
-                "src/main/java/com/fitincontact/exondoc/storage/files/Name"
-        );
+        final var rows = Util.getRowsFromFile(FILE);
         rows.forEach(row -> {
             final var fields = Util.separator(row, Separator.FIELD);
             add(new Name(
@@ -73,16 +73,32 @@ public class Name implements InstanceI, NameI {
                     fields.get(3)
             ));
         });
-        int i = 10;
     }
 
     @Override
     public void stop() {
-
+        save();
     }
 
     @Override
     public void save() {
+        StringBuilder file = new StringBuilder();
+
+        for (final Name name : names) {
+            file.append(name.nameId).append(Separator.FIELD.getSeparator()).append(name.name).append(Separator.FIELD.getSeparator());
+
+            var roots = new StringBuilder();
+            for (final String root : name.root) {
+                roots.append(root).append(Separator.ROOT.getSeparator());
+            }
+
+            file.append(roots.substring(0, roots.length() - 1)).append(Separator.FIELD.getSeparator()).append(name.exonTxt).append(Separator.FIELD.getSeparator()).append("\n");
+        }
+
+        Util.writeFile(
+                "src/main/java/com/fitincontact/exondoc/storage/files/test",
+                file.substring(0, file.length() - 1)
+        );
 
     }
 

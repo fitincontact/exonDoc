@@ -19,11 +19,13 @@ public class Storage implements StorageI {
     @Override
     public void stop() {
         sequence.stop();
+        name.stop();
     }
 
     @Override
     public void save() {
         sequence.save();
+        name.save();
     }
 
     @Override
