@@ -1,0 +1,4 @@
+2|Person||name : 'David' hobby ['food' {book : 'Java'}]|
+3|name|Person||
+4|hobby|Person||
+5|book|Person.hobby||!

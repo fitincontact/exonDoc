@@ -4,45 +4,41 @@ import com.fitincontact.exondoc.storage.interfaces.StorageI;
 
 import java.util.List;
 
-public class Storage implements StorageI {
-
-    protected final static Storage SINGLETON = new Storage();
-    private final Sequence sequence = Sequence.SINGLETON;
-    private final Name name = Name.SINGLETON;
+public class StorageNull implements StorageI {
+    protected final static StorageNull SINGLETON = new StorageNull();
 
     @Override
     public void start() {
-        sequence.start();
-        name.start();
+
     }
 
     @Override
     public void stop() {
-        sequence.stop();
+
     }
 
     @Override
     public void save() {
-        sequence.save();
+
     }
 
     @Override
     public Long getId() {
-        return sequence.getId();
+        return null;
     }
 
     @Override
     public Long getCurrentId() {
-        return sequence.getCurrentId();
+        return null;
     }
 
     @Override
     public Long getLastSavedId() {
-        return sequence.getLastSavedId();
+        return null;
     }
 
     @Override
     public List<Name> getNames() {
-        return name.getNames();
+        return null;
     }
 }
