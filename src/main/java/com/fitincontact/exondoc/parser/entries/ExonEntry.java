@@ -17,7 +17,7 @@ public class ExonEntry {
     //see file exon
     private List<ExonEntry> arrAndObjList = new ArrayList<>();
 
-    public ExonEntry(ValueType valueType) {
+    public ExonEntry(final ValueType valueType) {
         this.valueType = valueType;
     }
 
@@ -29,11 +29,11 @@ public class ExonEntry {
         return memberName;
     }
 
-    public void setMemberName(String memberName) {
+    public void setMemberName(final String memberName) {
         this.memberName = memberName;
     }
 
-    public void setMemberName(char memberName) {
+    public void setMemberName(final char memberName) {
         this.memberName = String.valueOf(memberName);
     }
 
@@ -41,7 +41,7 @@ public class ExonEntry {
         return valueType;
     }
 
-    public void setValueType(ValueType valueType) {
+    public void setValueType(final ValueType valueType) {
         this.valueType = valueType;
     }
 
@@ -49,7 +49,7 @@ public class ExonEntry {
         return str;
     }
 
-    public void setStr(String str) {
+    public void setStr(final String str) {
         this.str = str;
     }
 
@@ -57,11 +57,11 @@ public class ExonEntry {
         return num;
     }
 
-    public void setNum(String num) {
+    public void setNum(final String num) {
         this.num = num;
     }
 
-    public void setNum(char num) {
+    public void setNum(final char num) {
         this.num = String.valueOf(num);
     }
 
@@ -69,7 +69,7 @@ public class ExonEntry {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(final String date) {
         this.date = date;
     }
 
@@ -77,7 +77,7 @@ public class ExonEntry {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(final String path) {
         this.path = path;
     }
 
@@ -85,11 +85,11 @@ public class ExonEntry {
         return bool;
     }
 
-    public void setBool(String bool) {
+    public void setBool(final String bool) {
         this.bool = bool;
     }
 
-    public void setBool(char bool) {
+    public void setBool(final char bool) {
         this.bool = String.valueOf(bool);
     }
 
@@ -97,7 +97,7 @@ public class ExonEntry {
         return arrAndObjList;
     }
 
-    public void setArrAndObjList(List<ExonEntry> arrAndObjList) {
+    public void setArrAndObjList(final List<ExonEntry> arrAndObjList) {
         this.arrAndObjList = arrAndObjList;
     }
 
@@ -105,6 +105,7 @@ public class ExonEntry {
         this.arrAndObjList.add(exonEntry);
     }
 
+    @Override
     public String toString() {
         final var res = new StringBuilder();
         res.append(memberName.equals("") ? "" : memberName + " : ");
@@ -116,21 +117,21 @@ public class ExonEntry {
             res.append(bool.equals("") ? bool : bool + "\n");
         } else if (valueType == ValueType.OBJ) {
             res.append("{");
-            for (var member : arrAndObjList) {
-                res.append(member.toString());
+            for (final var member : arrAndObjList) {
+                res.append(member);
             }
             res.append("}\n");
         } else if (valueType == ValueType.ARR) {
             res.append("[");
-            for (var member : arrAndObjList) {
-                res.append(member.toString());
+            for (final var member : arrAndObjList) {
+                res.append(member);
             }
             res.append("]\n");
         }
         return res.toString();
     }
 
-    public String toStringWithFormat(int indent) {
+    public String toStringWithFormat(final int indent) {
         final var res = new StringBuilder();
         res.append(memberName.equals("") ? multiply(indent) : multiply(indent) + memberName + " : ");
         if (ValueType.primitive.contains(valueType)) {
@@ -141,13 +142,13 @@ public class ExonEntry {
             res.append(bool.equals("") ? bool : bool + "\n");
         } else if (valueType == ValueType.OBJ) {
             res.append("{\n");
-            for (var member : arrAndObjList) {
+            for (final var member : arrAndObjList) {
                 res.append(member.toStringWithFormat(indent + 1));
             }
             res.append(multiply(indent) + "}\n");
         } else if (valueType == ValueType.ARR) {
             res.append("[\n");
-            for (var member : arrAndObjList) {
+            for (final var member : arrAndObjList) {
                 res.append(member.toStringWithFormat(indent + 1));
             }
             res.append(multiply(indent)).append("]\n");
@@ -155,8 +156,8 @@ public class ExonEntry {
         return res.toString();
     }
 
-    private String multiply(int indent) {
-        StringBuilder res = new StringBuilder();
+    private String multiply(final int indent) {
+        final StringBuilder res = new StringBuilder();
         if (indent > 0) {
             for (int i = 0; i <= indent; i++) {
                 res.append("    ");
@@ -165,4 +166,10 @@ public class ExonEntry {
         return res.toString();
     }
 
+    public String toStringInLine() {
+        var txt = toString();
+        txt = txt.replace("\n", " ");
+        txt = txt.replace("\t", " ");
+        return txt;
+    }
 }

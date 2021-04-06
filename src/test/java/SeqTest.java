@@ -3,7 +3,7 @@ import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
 public class SeqTest {
-    final static Logger LOG = Logger.getLogger(SeqTest.class);
+    static final  Logger LOG = Logger.getLogger(SeqTest.class);
     StorageApi api = new StorageApi();
 
     @Test

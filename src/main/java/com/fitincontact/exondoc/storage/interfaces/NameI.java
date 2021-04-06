@@ -1,9 +1,10 @@
 package com.fitincontact.exondoc.storage.interfaces;
 
-import com.fitincontact.exondoc.storage.Name;
+import com.fitincontact.exondoc.storage.entities.Name;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NameI {
-    List<Name> getNames();
+    Map<Long, Name> getNames();
 }

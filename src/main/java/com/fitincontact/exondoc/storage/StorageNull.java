@@ -1,11 +1,15 @@
 package com.fitincontact.exondoc.storage;
 
+import com.fitincontact.exondoc.storage.entities.Data;
+import com.fitincontact.exondoc.storage.entities.Name;
+import com.fitincontact.exondoc.storage.entities.Value;
+import com.fitincontact.exondoc.storage.interfaces.Primitive;
 import com.fitincontact.exondoc.storage.interfaces.StorageI;
 
-import java.util.List;
+import java.util.Map;
 
 public class StorageNull implements StorageI {
-    protected final static StorageNull SINGLETON = new StorageNull();
+    protected static final StorageNull SINGLETON = new StorageNull();
 
     @Override
     public void start() {
@@ -38,7 +42,22 @@ public class StorageNull implements StorageI {
     }
 
     @Override
-    public List<Name> getNames() {
+    public Map<Long, Primitive> getVals() {
+        return null;
+    }
+
+    @Override
+    public Data getData() {
+        return null;
+    }
+
+    @Override
+    public Map<Long, Name> getNames() {
+        return null;
+    }
+
+    @Override
+    public Map<Long, Value> getValues() {
         return null;
     }
 }

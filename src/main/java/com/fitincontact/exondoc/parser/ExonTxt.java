@@ -20,11 +20,13 @@ public class ExonTxt {
             final String exonString
     ) {
         final var cleanExonStringTemp = exonString.strip();
+        //todo if size = 0
         var chPosition = exonString.length() - cleanExonStringTemp.length() - 1;
         if (cleanExonStringTemp.toCharArray()[0] != '{') {
             err(cleanExonStringTemp.toCharArray()[0], chPosition + 1);
         }
         chPosition++;
+        //todo if size = 0
         final var cleanExonString = cleanExonStringTemp.substring(1, cleanExonStringTemp.length() - 1);
 
         final var rootExon = new Exon(collection);
@@ -32,8 +34,9 @@ public class ExonTxt {
         stack.push(rootExon.getExonEntry());
 
         final StrategyStruct struct = new StrategyStruct();
-        for (char ch : cleanExonString.toCharArray()) {
+        for (final char ch : cleanExonString.toCharArray()) {
             chPosition++;
+//todo
 
 //            final var tmp = cleanExonString.substring(chPosition, cleanExonString.length() );
 //            if (chPosition == cleanExonString.length() - 2) {
@@ -45,8 +48,8 @@ public class ExonTxt {
 
             struct.setCh(ch);
             ExonTxtStrategy.define(struct);
-            var strategy = struct.getCharPlaceType();
-            var parseAction = ParseAction.charPlaceMapOnParseAction(strategy);
+            final var strategy = struct.getCharPlaceType();
+            final var parseAction = ParseAction.charPlaceMapOnParseAction(strategy);
             if (parseAction == null) {
                 System.out.println("--null--");
                 err(ch, chPosition);
@@ -63,7 +66,7 @@ public class ExonTxt {
                     current.setMemberName(current.getMemberName() + ch);
                 }
                 case NEW_OBJ -> {
-                    var current = stack.peek();
+                    final var current = stack.peek();
                     if (!current.getMemberName().isEmpty() && current.getValueType() != ValueType.ARR) {
                         current.setValueType(ValueType.OBJ);
                     } else {
@@ -114,13 +117,13 @@ public class ExonTxt {
 
                     //num and bool dont have special end symbol like other primitives
                     if (struct.getParent() == ParentType.OBJ &&
-                            (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
-                                    struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
+                        (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
+                         struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
                         struct.setCharPlaceType(CharPlaceType.OBJ_WHITE_SPACE_1);
                     }
                     if (struct.getParent() == ParentType.ARR &&
-                            (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
-                                    struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
+                        (struct.getCharPlaceType() == CharPlaceType.NUM_WHITE_SPACE ||
+                         struct.getCharPlaceType() == CharPlaceType.BOOL_WHITE_SPACE)) {
                         struct.setCharPlaceType(CharPlaceType.ARR_WHITE_SPACE);
                     }
 
@@ -139,7 +142,12 @@ public class ExonTxt {
     }
 
     private Exon err(final char ch, final int place) {
-        System.out.println("Non expected symbol: <" + ch + ">, name: <" + Character.getName(ch) + ">, on position: " + place);
+        System.out.println("Non expected symbol: <" +
+                           ch +
+                           ">, name: <" +
+                           Character.getName(ch) +
+                           ">, on position: " +
+                           place);
         return null;
     }
 

@@ -1,32 +1,31 @@
 import com.fitincontact.exondoc.api.ExonDoc;
+import com.fitincontact.exondoc.etc.Util;
 import com.fitincontact.exondoc.parser.entries.Exon;
-import com.fitincontact.exondoc.utils.Util;
 import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class ExonTxtTest {
-    final static Logger LOG = Logger.getLogger(ExonTxtTest.class);
+    static final Logger LOG = Logger.getLogger(ExonTxtTest.class);
 
     private final ExonDoc exonDoc = new ExonDoc();
 
+    //todo num in path
+    //todo print only firs error
     @DataProvider
     public Object[][] parseData() {
-        final String collection = "Person";
+        final var collection = "Person";
 
-        final String exonString1 = Util.readFile("src/test/resources/exon/exonString1.exon", Charset.defaultCharset());
-        final String exonString2 = Util.readFile("src/test/resources/exon/exonString2.exon", Charset.defaultCharset());
-        final String template2 = Util.readFile("src/test/resources/template/2", Charset.defaultCharset());
+        final var exonString1 = Util.readFile("src/test/resources/exon/exonString1.exon", Charset.defaultCharset());
+        final var exonString2 = Util.readFile("src/test/resources/exon/exonString2.exon", Charset.defaultCharset());
+        final var template2 = Util.readFile("src/test/resources/template/2", Charset.defaultCharset());
 
         return new Object[][]{
-                //{collection, exonString1},
-                {collection, exonString2, template2},
+                {collection, exonString1, template2},
+                //{collection, exonString2, template2},
         };
     }
 

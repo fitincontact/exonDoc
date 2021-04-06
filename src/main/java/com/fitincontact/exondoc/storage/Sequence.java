@@ -1,14 +1,14 @@
 package com.fitincontact.exondoc.storage;
 
+import com.fitincontact.exondoc.etc.Util;
 import com.fitincontact.exondoc.storage.interfaces.InstanceI;
 import com.fitincontact.exondoc.storage.interfaces.SequenceI;
-import com.fitincontact.exondoc.utils.Util;
 
 import java.nio.charset.Charset;
 import java.util.Objects;
 
 public class Sequence implements InstanceI, SequenceI {
-    protected final static Sequence SINGLETON = new Sequence();
+    protected static final Sequence SINGLETON = new Sequence();
     private Long id;
 
     @Override

@@ -1,0 +1,66 @@
+2|Person||{name : 'David' hobby ['food' {book : 'Java'}]}|
+3|name|Person||
+4|hobby|Person||
+5|book|Person.hobby||
+
+
+person
+{
+name : 'David'
+age : 25
+birtDay : "1985-12-03"
+foto : `/download/tom1.png`
+isDeveloper: nil
+job : ['Google' 'Amazon']
+friend : {name : 'Sarah'}
+}
+
+Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } }
+
+1|person||Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
+2|name|person||
+3|age|person||
+4|birtDay|person||
+5|foto|person||
+6|isDeveloper|person||
+7|job|person||
+8|friend|person||
+9|name|person.friend||
+
+10|1|m|2|
+11|1|m|3|
+12|1|m|4|
+13|1|m|5|
+14|1|m|6|
+15|1|a|7|
+16|1|o|8|
+17|2|s||
+18|3|n||
+19|4|d||
+20|5|p||
+21|6|b||
+22|7|s||
+23|7|s||
+24|8|m|9|
+25|9|s||
+
+str:
+17|David|
+22|Google|
+23|Amazon|
+25|Sarah|
+
+num:
+18|25|
+
+date:
+19|1985-12-03|
+
+path:
+20|/download/tom.png|
+
+bool:
+21|nil|
+
+
+

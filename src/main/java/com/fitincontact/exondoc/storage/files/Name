@@ -1,4 +1,9 @@
-2|Person||{name : 'David' hobby ['food' {book : 'Java'}]}|
-3|name|Person||
-4|hobby|Person||
-5|book|Person.hobby||
+1|person||Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
+2|name|person||
+3|age|person||
+4|birtDay|person||
+5|foto|person||
+6|isDeveloper|person||
+7|job|person||
+8|friend|person||
+9|name|person.friend||

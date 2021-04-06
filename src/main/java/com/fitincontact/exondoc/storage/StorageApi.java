@@ -1,20 +1,26 @@
 package com.fitincontact.exondoc.storage;
 
+import com.fitincontact.exondoc.parser.entries.Exon;
+import com.fitincontact.exondoc.storage.entities.Data;
+import com.fitincontact.exondoc.storage.entities.Name;
+import com.fitincontact.exondoc.storage.entities.Value;
 import com.fitincontact.exondoc.storage.enums.StorageState;
+import com.fitincontact.exondoc.storage.interfaces.Primitive;
 import com.fitincontact.exondoc.storage.interfaces.StorageI;
 
-import java.util.List;
+import java.util.Map;
 
 public class StorageApi implements StorageI {
-    private final StorageI storage = Storage.SINGLETON;
-    private final StorageI NULL = StorageNull.SINGLETON;
-    private StorageI work;
-    private StorageState state = StorageState.SINGLETON;
+    private static final StorageI storage = Storage.SINGLETON;
+    private static final StorageI NULL = StorageNull.SINGLETON;
+    private static final ExonToStorage exonToStorage = new ExonToStorage();
+    private static StorageI work;
+    private static StorageState state = StorageState.SINGLETON;
 
     @Override
     public void start() {
-        storage.start();
         work = storage;
+        storage.start();
         state = StorageState.START;
     }
 
@@ -45,8 +51,32 @@ public class StorageApi implements StorageI {
         return work.getLastSavedId();
     }
 
+    public Storage getStorage() {
+        return Storage.SINGLETON;
+    }
+
+    public void insert(final Exon exon) {
+        final var storage = exonToStorage.convert(exon);
+
+    }
+
     @Override
-    public List<Name> getNames() {
+    public Map<Long, Primitive> getVals() {
+        return work.getVals();
+    }
+
+    @Override
+    public Data getData() {
+        return work.getData();
+    }
+
+    @Override
+    public Map<Long, Name> getNames() {
         return work.getNames();
+    }
+
+    @Override
+    public Map<Long, Value> getValues() {
+        return work.getValues();
     }
 }

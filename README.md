@@ -6,7 +6,7 @@ DB use exon format:
 'Tom' - string  
 25 - number  
 true - boolean  
-"1985-12-01 12:01:00" - date  
+"2007-12-03T10:15:30" - date  
 \`/exdoc/storage\` - disk path  
 {} - object  
 [] - array  
@@ -18,7 +18,7 @@ See:
 example:  
 {  
 name : 'David'  
-birthDate : "1985-12-01 12:01:00"  
+birthDate : "2007-12-03T10:15:30"  
 age : 25  
 isDeveloper : true  
 foto : \`/exdoc/storage\`  
@@ -31,7 +31,10 @@ friends : [
 - [ ] Parser
     - [X] exon
     - [ ] command
-    - [X] exon to string
+    - [X] exon beautifier
+- [ ] Storage on disc
+    - [ ] read
+    - [ ] write
 - [ ] DML
     - [ ] insert
     - [ ] select
