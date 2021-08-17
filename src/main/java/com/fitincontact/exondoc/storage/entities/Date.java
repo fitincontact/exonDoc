@@ -63,4 +63,9 @@ public class Date implements Primitive<LocalDateTime, Date>, InstanceI {
     public Map<Long, Date> getVals() {
         return vals;
     }
+
+    @Override
+    public void add(final Map<Long, Date> vals ){
+        vals.putAll(vals);
+    }
 }

@@ -1,0 +1,1 @@
+{name : 'David' age : 25 birtDay : "2007-12-03T10:15:30" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } }

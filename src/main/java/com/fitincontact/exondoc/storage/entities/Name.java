@@ -1,10 +1,10 @@
 package com.fitincontact.exondoc.storage.entities;
 
+import com.fitincontact.exondoc.etc.Constant;
+import com.fitincontact.exondoc.etc.Util;
 import com.fitincontact.exondoc.storage.enums.Separator;
 import com.fitincontact.exondoc.storage.interfaces.InstanceI;
 import com.fitincontact.exondoc.storage.interfaces.NameI;
-import com.fitincontact.exondoc.etc.Constant;
-import com.fitincontact.exondoc.etc.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -74,12 +74,14 @@ public class Name implements InstanceI, NameI {
         final var rows = Util.getRowsFromFile(NAME);
         rows.forEach(row -> {
             final var fields = Util.separator(row, Separator.FIELD);
-            add(new Name(
-                    Long.valueOf(fields.get(0)),
-                    fields.get(1),
-                    Util.separator(fields.get(2), Separator.ROOT),
-                    fields.get(3)
-            ));
+            if (!row.equals("")) {
+                add(new Name(
+                        Long.valueOf(fields.get(0)),
+                        fields.get(1),
+                        Util.separator(fields.get(2), Separator.ROOT),
+                        fields.get(3)
+                ));
+            }
         });
     }
 
@@ -92,7 +94,7 @@ public class Name implements InstanceI, NameI {
     public void save() {
         final var file = new StringBuilder();
 
-        for (final Map.Entry<Long, Name> entry : names.entrySet()) {
+        for (final var entry : names.entrySet()) {
             file
                     .append(entry.getValue().nameId)
                     .append(Separator.FIELD.getSeparator())
@@ -100,22 +102,27 @@ public class Name implements InstanceI, NameI {
                     .append(Separator.FIELD.getSeparator());
 
             final var roots = new StringBuilder();
-            for (final String root : entry.getValue().root) {
-                roots.append(root).append(Separator.ROOT.getSeparator());
+            if (entry.getValue().root != null) {
+                for (final String root : entry.getValue().root) {
+                    roots.append(root).append(Separator.ROOT.getSeparator());
+                }
             }
             //todo if size = 0
-            file
-                    .append(roots.substring(0, roots.length() - 1))
-                    .append(Separator.FIELD.getSeparator())
-                    .append(entry.getValue().exonTxt)
-                    .append(Separator.FIELD.getSeparator())
-                    .append("\n");
+            if (!roots.toString().equals("")) {
+                file
+                        .append(roots.substring(0, roots.length() - 1))
+                        .append(Separator.FIELD.getSeparator())
+                        .append(entry.getValue().exonTxt)
+                        .append(Separator.FIELD.getSeparator())
+                        .append("\n");
+            }
         }
-        //todo if size = 0
-        Util.writeFile(
-                NAME,
-                file.substring(0, file.length() - 1)
-        );
+        if (!file.toString().equals("")) {
+            Util.writeFile(
+                    NAME,
+                    file.substring(0, file.length() - 1)
+            );
+        }
     }
 
     @Override
@@ -146,6 +153,6 @@ public class Name implements InstanceI, NameI {
     }
 
     private void add(final Name name) {
-        names.put(name.nameId,name);
+        names.put(name.nameId, name);
     }
 }

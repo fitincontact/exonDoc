@@ -7,8 +7,7 @@ public interface Primitive<T, Y> {
 
     <T> T getVal();
 
-//    @Deprecated
-//    String getStringVal();
-
     Map<Long, Y> getVals();
+
+    void add(final Map<Long, Y> vals );
 }

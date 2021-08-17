@@ -8,7 +8,7 @@ import com.fitincontact.exondoc.storage.interfaces.StorageI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Storage implements StorageI, Command<Storage> {
+public class Storage implements StorageI<Data> {
 
     protected static final Storage SINGLETON = new Storage();
     private static final Map<Long, Primitive> vals = new HashMap<>();
@@ -87,11 +87,6 @@ public class Storage implements StorageI, Command<Storage> {
     }
 
     @Override
-    public void insert(final Storage storage) {
-
-    }
-
-    @Override
     public Data getData() {
         return data;
     }
@@ -111,4 +106,14 @@ public class Storage implements StorageI, Command<Storage> {
         return vals;
     }
 
+    @Override
+    public Data getNewData() {
+        return data.getNewData();
+    }
+
+    @Override
+    public void insert(final Data dataNew) {
+        data.insert(dataNew);
+        save();
+    }
 }

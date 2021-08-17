@@ -63,4 +63,9 @@ public class Num implements Primitive<Double, Num>, InstanceI {
     public Map<Long, Num> getVals() {
         return vals;
     }
+
+    @Override
+    public void add(final Map<Long, Num> vals ){
+        vals.putAll(vals);
+    }
 }

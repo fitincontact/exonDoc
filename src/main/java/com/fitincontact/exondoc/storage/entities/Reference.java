@@ -26,4 +26,7 @@ public class Reference {
         return name;
     }
 
+    public Primitive getPrimitive() {
+        return primitive;
+    }
 }

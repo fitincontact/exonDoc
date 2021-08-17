@@ -32,7 +32,7 @@ public class Bool implements Primitive<BoolType, Bool>, InstanceI {
         rows.forEach(row -> {
             vals.put(
                     row.getKey(),
-                    new Bool(row.getKey(), BoolType.parse(row.getValue()))
+                    new Bool(row.getKey(), BoolType.parseElement(row.getValue()))
             );
         });
     }
@@ -60,5 +60,10 @@ public class Bool implements Primitive<BoolType, Bool>, InstanceI {
     @Override
     public Map<Long, Bool> getVals() {
         return vals;
+    }
+
+    @Override
+    public void add(final Map<Long, Bool> vals ){
+        vals.putAll(vals);
     }
 }

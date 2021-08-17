@@ -15,9 +15,10 @@ job : ['Google' 'Amazon']
 friend : {name : 'Sarah'}
 }
 
-Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } }
+Person : {name : 'David' age : 25 birtDay : "2007-12-03T10:15:30" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } }
 
-1|person||Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
+name:
+1|person||Person : {name : 'David' age : 25 birtDay : "2007-12-03T10:15:30" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
 2|name|person||
 3|age|person||
 4|birtDay|person||
@@ -27,6 +28,16 @@ Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.p
 8|friend|person||
 9|name|person.friend||
 
+336|age|Person||
+338|birtDay|Person||
+340|foto|Person||
+342|isDeveloper|Person||
+344||Person.job||
+346||Person.job.job||
+348|name|Person.job.job||
+334|name|Person||
+
+value:
 10|1|m|2|
 11|1|m|3|
 12|1|m|4|
@@ -51,16 +62,16 @@ str:
 25|Sarah|
 
 num:
-18|25|
+18|25.0|
 
 date:
-19|1985-12-03|
+19|2007-12-03T10:15:30|
 
 path:
 20|/download/tom.png|
 
 bool:
-21|nil|
+21|NIL|
 
 
 

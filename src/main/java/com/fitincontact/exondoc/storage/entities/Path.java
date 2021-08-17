@@ -60,4 +60,9 @@ public class Path implements Primitive<String, Path>, InstanceI {
     public Map<Long, Path> getVals() {
         return vals;
     }
+
+    @Override
+    public void add(final Map<Long, Path> vals ){
+        vals.putAll(vals);
+    }
 }

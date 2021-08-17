@@ -1,11 +1,19 @@
 package com.fitincontact.exondoc.parser.entries;
 
 import com.fitincontact.exondoc.parser.enums.ValueType;
+import com.fitincontact.exondoc.storage.StorageApi;
+import com.fitincontact.exondoc.storage.entities.*;
+import com.fitincontact.exondoc.storage.enums.BoolType;
+import com.fitincontact.exondoc.storage.enums.ValueFileType;
+import com.fitincontact.exondoc.storage.interfaces.Primitive;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExonEntry {
+    StorageApi api = new StorageApi();
+
     private ValueType valueType;
     private String memberName = "";
     private String str = "";
@@ -170,6 +178,114 @@ public class ExonEntry {
         var txt = toString();
         txt = txt.replace("\n", " ");
         txt = txt.replace("\t", " ");
+        txt = txt.replace(" }", "");
         return txt;
+    }
+
+    public Data convert(final StringBuilder root, final boolean isRoot) {
+        final var data = api.getNewData();
+        final var names = data.getNames();
+        final var values = data.getValues();
+
+        if (isRoot) {
+            final var name = new Name(
+                    api.getId(),
+                    root.toString(),
+                    null,
+                    this.toString()
+            );
+            names.put(name.getNameId(), name);
+        }
+
+        if (ValueType.primitive.contains(valueType)) {
+            final var name = new Name(
+                    api.getId(),
+                    memberName,
+                    List.of(root.toString()),
+                    ""
+            );
+            Primitive primitive = null;
+            switch (valueType) {
+                case OBJ, ARR -> {
+                }
+                case STR -> {
+                    primitive = new Str(
+                            name.getNameId(),
+                            this.str
+                    );
+                }
+                case NUM -> {
+                    primitive = new Num(
+                            name.getNameId(),
+                            Double.valueOf(this.num)
+                    );
+                }
+                case DATE -> {
+                    primitive = new Date(
+                            name.getNameId(),
+                            LocalDateTime.parse(this.date)
+                    );
+                }
+                case PATH -> {
+                    primitive = new Path(
+                            name.getNameId(),
+                            this.path
+                    );
+                }
+                case BOOL -> {
+                    primitive = new Bool(
+                            name.getNameId(),
+                            BoolType.parseLiteral(this.bool)
+                    );
+                }
+            }
+            names.put(name.getNameId(), name);
+            final var reference = new Reference(
+                    valueTypeToValueFileType(valueType),
+                    null,
+                    primitive
+            );
+            final var value = new Value(
+                    api.getId(),
+                    name,
+                    reference
+            );
+            values.put(name.getNameId(), value);
+        } else if (valueType == ValueType.OBJ) {
+            for (final var member : arrAndObjList) {
+                data.add(member.convert(root, false));
+            }
+        } else if (valueType == ValueType.ARR) {
+            for (final var member : arrAndObjList) {
+                data.add(member.convert(root.append(".").append(memberName), false));
+            }
+        }
+        return data;
+    }
+
+    private ValueFileType valueTypeToValueFileType(final ValueType valueType) {
+        final ValueFileType valueFileType;
+        switch (valueType) {
+            case OBJ, ARR -> {
+                valueFileType = null;
+            }
+            case STR -> {
+                valueFileType = ValueFileType.STR;
+            }
+            case NUM -> {
+                valueFileType = ValueFileType.NUM;
+            }
+            case DATE -> {
+                valueFileType = ValueFileType.DATE;
+            }
+            case PATH -> {
+                valueFileType = ValueFileType.PATH;
+            }
+            case BOOL -> {
+                valueFileType = ValueFileType.BOOL;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + valueType);
+        }
+        return valueFileType;
     }
 }

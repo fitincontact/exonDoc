@@ -51,7 +51,7 @@ public class ExonTxt {
             final var strategy = struct.getCharPlaceType();
             final var parseAction = ParseAction.charPlaceMapOnParseAction(strategy);
             if (parseAction == null) {
-                System.out.println("--null--");
+                //System.out.println("--null--");
                 err(ch, chPosition);
             }
             switch (parseAction) {

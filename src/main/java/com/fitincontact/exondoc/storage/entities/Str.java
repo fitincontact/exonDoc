@@ -24,21 +24,10 @@ public class Str implements Primitive<String, Str>, InstanceI {
 
     public Str() {
     }
-//
-//    @Override
-//    public Map<Long, Str> getStrs() {
-//        return strs;
-//    }
 
     @Override
     public void start() {
         final var rows = Util.readPrimitive(STR);
-//        rows.forEach(row -> {
-//            strs.put(
-//                    row.id(),
-//                    new Str(row.id(), row.val())
-//            );
-//        });
         rows.forEach(row -> {
             vals.put(
                     row.getKey(),
@@ -55,7 +44,6 @@ public class Str implements Primitive<String, Str>, InstanceI {
     @Override
     public void save() {
         Util.writePrimitive(vals, STR);
-
     }
 
     @Override
@@ -76,5 +64,10 @@ public class Str implements Primitive<String, Str>, InstanceI {
     @Override
     public String getVal() {
         return val;
+    }
+
+    @Override
+    public void add(final Map<Long, Str> vals ){
+        vals.putAll(vals);
     }
 }

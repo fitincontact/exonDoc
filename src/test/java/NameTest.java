@@ -8,6 +8,7 @@ public class NameTest {
 
     @Test
     public void Test() {
+        LOG.debug("NameTest");
         api.start();
         final var names = api.getNames();
         api.stop();

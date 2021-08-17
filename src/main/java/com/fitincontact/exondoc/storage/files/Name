@@ -1,4 +1,4 @@
-1|person||Person : {name : 'David' age : 25 birtDay : "1985-12-03" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
+1|person||Person : {name : 'David' age : 25 birtDay : "2007-12-03T10:15:30" foto : `/download/tom.png` isDeveloper : nil job : ['Google' 'Amazon' ] friend : {name : 'Sarah' } } |
 2|name|person||
 3|age|person||
 4|birtDay|person||

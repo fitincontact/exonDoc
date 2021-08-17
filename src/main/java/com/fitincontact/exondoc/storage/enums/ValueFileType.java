@@ -1,6 +1,7 @@
 package com.fitincontact.exondoc.storage.enums;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 
 public enum ValueFileType {
     OBJ("o"),
@@ -23,5 +24,12 @@ public enum ValueFileType {
                 .filter(valueFileType -> valueFileType.element.equals(element))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static EnumSet<ValueFileType> NONPRIMITIVE = EnumSet.of(OBJ, ARR, MEM);
+    public static EnumSet<ValueFileType> PRIMITIVE = EnumSet.of(STR,NUM,DATE,PATH,BOOL);
+
+    public String getElement() {
+        return element;
     }
 }

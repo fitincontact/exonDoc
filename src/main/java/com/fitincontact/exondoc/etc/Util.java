@@ -41,7 +41,6 @@ public class Util {
                                 Charset.defaultCharset()
                         )
                 );
-
         return separator(rows, Separator.END_CORTEGE);
     }
 
@@ -64,7 +63,7 @@ public class Util {
 
             list.add(part);
 
-            System.out.println(part);
+            //System.out.println(part);
         }
         return list;
     }
@@ -87,12 +86,15 @@ public class Util {
         final var rows = getRowsFromFile(filePath);
         final var rawPrimitives = new ArrayList<Pair<Long, String>>();
         rows.forEach(row -> {
-            final var fields = Util.separator(row, Separator.FIELD);
-            final Pair<Long, String> rawPrimitive = new Pair(
-                    Long.valueOf(fields.get(0)),
-                    fields.get(1)
-            );
-            rawPrimitives.add(rawPrimitive);
+            if(!row.equals("")){
+                final var fields = Util.separator(row, Separator.FIELD);
+                final Pair<Long, String> rawPrimitive = new Pair(
+                        Long.valueOf(fields.get(0)),
+                        fields.get(1)
+                );
+                rawPrimitives.add(rawPrimitive);
+            }
+
         });
         return rawPrimitives;
     }
@@ -131,11 +133,13 @@ public class Util {
                     .append(Separator.FIELD.getSeparator())
                     .append(Separator.END_CORTEGE.getSeparator());
         }
-        //todo if size = 0
-        Util.writeFile(
-                filePath,
-                file.substring(0, file.length() - 1)
-        );
+        if(!file.toString().equals("")){
+            Util.writeFile(
+                    filePath,
+                    file.substring(0, file.length() - 1)
+            );
+        }
+
     }
 
 }
